@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 
 @Entity // DB의 테이블로 매핑
 public class Stock {
@@ -14,11 +15,14 @@ public class Stock {
 	private Long productId;
 	private Long quantity;
 
+	@Version
+	private Long version; // Optimistic Lock을 위함
+
 	public Stock() {
 	}
 
-	public Stock(Long id, Long quantity) {
-		this.id = id;
+	public Stock(Long productId, Long quantity) {
+		this.productId = productId;
 		this.quantity = quantity;
 	}
 

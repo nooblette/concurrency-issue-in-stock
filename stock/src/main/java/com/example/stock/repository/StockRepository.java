@@ -13,4 +13,8 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 	@Lock(LockModeType.PESSIMISTIC_WRITE) // Spring Data Jpa에서는 @Lock 어노테이션을 활용하여 손쉽게 Pessimistic Lock을 구현할 수 있다.
 	@Query("select s from Stock s where s.id = :id")
 	Stock findByIdWithPessimisticLock(Long id);
+
+	@Lock(LockModeType.OPTIMISTIC) // Optimistic Lock을 위함
+	@Query("select s from Stock s where s.id = :id")
+	Stock findByIdWithOptimisticLock(Long id);
 }
