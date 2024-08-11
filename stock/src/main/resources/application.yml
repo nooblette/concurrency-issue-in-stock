@@ -11,7 +11,11 @@ spring:
     username: root
     password: 1234
 
-# JPA?? ??? ??? ???? ???? ??
+    # Named Lock을 사용하는데 편의상 비즈니스 로직과 동일한 DataSource를 사용하므로 커넥션 풀 사이즈를 넉넉히 늘려준다.
+    hikari:
+      maximum-pool-size: 40
+
+# JPA에서 쿼리가 어떻게 나가는지 확인하기 위함
 logging:
   level:
     org:

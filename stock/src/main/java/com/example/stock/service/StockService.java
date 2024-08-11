@@ -3,6 +3,7 @@ package com.example.stock.service;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.stock.domain.Stock;
@@ -18,7 +19,8 @@ public class StockService {
 	}
 
 	// 재고 감소 로직 구현
-	@Transactional
+	// Named Lock을 사용하는 경우 부모와 별도의 트랜잭션에서 수행되어야하므로 Propagation 수준을 REQUIRES_NEW로 지정한다.
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public synchronized void decrease(Long id, Long quantity) {
 		// Stock 조회
 		Optional<Stock> stock = stockRepository.findById(id);
